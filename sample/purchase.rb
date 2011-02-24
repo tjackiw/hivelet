@@ -35,10 +35,9 @@ end
 select(:all, 
   :from       => 'ofx_purchases', 
   :columns    => ["client_application_id", "count", "sum(cost)", "to_date(created_at)"], 
-  :conditions => ["item IS NOT NULL AND ds = ?", Date.today.to_s], 
+  :conditions => ["item = ? AND ds = ? AND age = ? AND b = ?", 'sales', Date.today.to_s, nil, 3.123456789], 
   :group      => ["client_application_id", "to_date(created_at)"], 
   :into       => { :directory => '/path/to/directory', :local => true },
   :order      => ["item DESC", "a ASC"]
 )
 
-# #select(:all, :from => 'ofx_purchases', :into => { :table => 'a', :directory => 'b', :local => false, :overwrite => true, :partition => {:ds => '123'} })
