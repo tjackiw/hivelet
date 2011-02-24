@@ -66,7 +66,7 @@ module Hivelet
       end
       
       def to_s
-        @table.prune
+        @table.cleanse
         statement = "CREATE "
         statement << "EXTERNAL " if @table[:external]
         statement << "TABLE "

@@ -1,3 +1,5 @@
+require 'date'
+
 add :jar => 's3://elasticmapreduce/samples/hive-ads/libs/jsonserde.jar'
 
 create('ofx_purchases') do |table|
@@ -30,5 +32,13 @@ alter('ofx_purchases') do |table|
   table.recover_partitions
 end
 
-select(:all, :from => 'ofx_purchases', :into => { :table => 'a', :directory => 'b', :local => false, :partition => {:ds => '123'} })
+select(:all, 
+  :from       => 'ofx_purchases', 
+  :columns    => ["client_application_id", "count", "sum(cost)", "to_date(created_at)"], 
+  :conditions => ["item IS NOT NULL AND ds = ?", Date.today.to_s], 
+  :group      => ["client_application_id", "to_date(created_at)"], 
+  :into       => { :directory => '/path/to/directory', :local => true },
+  :order      => ["item DESC", "a ASC"]
+)
 
+# #select(:all, :from => 'ofx_purchases', :into => { :table => 'a', :directory => 'b', :local => false, :overwrite => true, :partition => {:ds => '123'} })
