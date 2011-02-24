@@ -14,7 +14,7 @@ module Hivelet
       end
 
       def buckets(n)
-        raise("Only integers!") unless n.is_a?(Integer)
+        raise(Hivelet::TypeError.new("Only integers can be used for the bucket option.")) unless n.is_a?(Integer)
         @cluster[:buckets] = n
       end
     end

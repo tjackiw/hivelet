@@ -10,10 +10,10 @@ module Hivelet
           valid_options  = [:type, :comment]
           options = (options || {}).merge(:type => type)
 
-          raise("Field name is missing") if field.to_s.empty?
+          raise(Hivelet::MissingArgumentError.new("The column's name is missing!")) if field.to_s.empty?
 
           unless (keys = (options.keys - valid_options)).empty?
-            raise "Invalid parameters: #{ keys.join(',') }"
+            raise Hivelet::Error.new("Invalid parameters: #{ keys.join(',') }")
           end
 
           @columns << [field, options]

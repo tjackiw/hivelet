@@ -6,7 +6,7 @@ module Hivelet
       unless block_given?
         valid_options = [:jar, :file]
         unless (keys = (options.keys - valid_options)).empty?
-          raise "Invalid parameters: #{ keys.join(', ') }. Valid parameters are: #{valid_options.join(', ')}"
+          raise Hivelet::Error.new("Invalid parameters: #{ keys.join(', ') }. Valid parameters are: #{valid_options.join(', ')}")
         end
         options.each_pair do |key,value|
           @statements << "ADD #{key.to_s.upcase} #{value}"
