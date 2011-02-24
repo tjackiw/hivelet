@@ -40,5 +40,9 @@ module Hivelet
       @top_level_statements << table
       table
     end
+    
+    def select(scope, options = {})
+      @top_level_statements << Hivelet::Table::Select.new(scope, options)
+    end
   end
 end

@@ -13,6 +13,7 @@ module Hivelet
     autoload :Column,    'hivelet/table/column'
     autoload :Partition, 'hivelet/table/partition'
     autoload :RowFormat, 'hivelet/table/row_format'
+    autoload :Select,    'hivelet/table/select'
   end
   
 end
